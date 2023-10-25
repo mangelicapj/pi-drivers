@@ -1,4 +1,5 @@
 const { DataTypes } = require('sequelize');
+const Team = require('./Team.js');
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
@@ -30,7 +31,7 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
     },
   });
-  Driver.belongsTo(Team); 
+  Driver.belongsTo(Team);
 
   return Driver;
 };

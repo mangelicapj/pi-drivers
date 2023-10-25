@@ -21,7 +21,6 @@ fs.readdirSync(path.join(__dirname, '/models'))
     modelDefiners.push(require(path.join(__dirname, '/models', file)));
   });
 
-
 modelDefiners.forEach(model => model(sequelize));
 
 let entries = Object.entries(sequelize.models);
@@ -29,11 +28,9 @@ let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].s
 sequelize.models = Object.fromEntries(capsEntries);
 
 const { Driver } = sequelize.models;
-
-// Aca vendrian las relaciones
-// Product.hasMany(Reviews);
+const Team = require('./models/Team.js');  // Corrige la importación aquí.
 
 module.exports = {
-  ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
-  conn: sequelize,     // para importart la conexión { conn } = require('./db.js');
+  ...sequelize.models,
+  conn: sequelize,
 };
