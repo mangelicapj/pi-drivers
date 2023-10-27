@@ -1,22 +1,16 @@
 {
-    "development": {
-      "username": "postgres",
-      "password": "1234",
-      "database": "drivers", 
-      "host": "localhost",
-      "dialect": "postgres"
-    },
-    "test": {
-      "username": "postgres",
-      "password": "1234",
-      "database": "drivers", 
-      "dialect": "postgres"
-    },
-    "production": {
-      "username": "postgres",
-      "password": "1234",
-      "database": "drivers",  
-      "dialect": "postgres"
-    }
+  "development": {
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "postgres"
+  },
+  "test": {
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "postgres"
+  },
+  "production": {
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "postgres"
   }
-  
+}
+
+

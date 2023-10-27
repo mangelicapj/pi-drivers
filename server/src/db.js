@@ -1,6 +1,7 @@
 require("dotenv").config();
 const { Sequelize } = require("sequelize");
 
+
 const fs = require('fs');
 const path = require('path');
 const {
@@ -21,16 +22,33 @@ fs.readdirSync(path.join(__dirname, '/models'))
     modelDefiners.push(require(path.join(__dirname, '/models', file)));
   });
 
-modelDefiners.forEach(model => model(sequelize));
+  const defineModels = async () => {
+    for (const modelDefiner of modelDefiners) {
+      modelDefiner(sequelize);
+    }
+  
+    const { Driver } = sequelize.models;
+    const { Team } = sequelize.models;
+  
+    Driver.belongsToMany(Team, {
+      through: 'DriverTeam',
+    });
+  
+    Team.belongsToMany(Driver, {
+      through: 'DriverTeam',
+    });
+  };
 
-let entries = Object.entries(sequelize.models);
-let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
-sequelize.models = Object.fromEntries(capsEntries);
 
-const { Driver } = sequelize.models;
-const Team = require('./models/Team.js');  // Corrige la importación aquí.
-
-module.exports = {
-  ...sequelize.models,
-  conn: sequelize,
-};
+  defineModels().then(() => {
+    let entries = Object.entries(sequelize.models);
+    let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
+    sequelize.models = Object.fromEntries(capsEntries);
+  }).catch(error => {
+    console.error('Error al definir modelos y relaciones:', error);
+  });
+  
+  module.exports = {
+    ...sequelize.models,
+    conn: sequelize,
+  };
