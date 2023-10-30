@@ -1,10 +1,10 @@
-const { DataTypes } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
   const Driver = sequelize.define('Driver', {
     id: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      defaultValue: Sequelize.UUIDV4,
       primaryKey: true,
     },
     name: {

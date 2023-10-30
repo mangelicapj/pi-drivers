@@ -4,7 +4,8 @@ const { conn } = require('./src/db.js');
 const PORT = 3001;
 const db = require('./src/db');
 
-db.conn.sync({ force: false })
+
+db.conn.sync({ force: true })
   .then(() => {
     console.log('Base de datos sincronizada');
     server.listen(PORT, () => {
@@ -14,5 +15,4 @@ db.conn.sync({ force: false })
   .catch((error) => {
     console.error('Error al sincronizar la base de datos:', error);
   });
-
 

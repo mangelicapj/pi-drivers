@@ -7,7 +7,6 @@ const router = Router();
 router.get("/drivers", driversController.getAllDrivers);
 router.get("/drivers/:idDriver", driversController.getDriverById);
 router.get("/drivers/name", driversController.searchDriversByName);
-router.get("/drivers/search", driversController.searchDriversByName);
 router.post("/drivers", driversController.createDriver);
 
 // Rutas relacionadas con los equipos
