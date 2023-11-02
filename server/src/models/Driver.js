@@ -23,7 +23,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
     },
     dob: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
     },
     nationality: {
       type: DataTypes.STRING,
