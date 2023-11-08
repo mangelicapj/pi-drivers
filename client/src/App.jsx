@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect} from 'react';
+import { Route, Routes } from 'react-router-dom';
+
+import styles from './App.css';
+import { LandingPage, HomePage, DetailPage, FormPage } from './components/indexviews';
+import Nav from './components/Nav/Nav';
+import axios from 'axios';
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [drivers, setDrivers] = useState([]);
 
+  const fetchDrivers = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/drivers');
+      setDrivers(response.data);
+    } catch (error) {
+      console.error('Error al obtener los conductores:', error);
+    }
+  }
+
+  useEffect(() => {
+    fetchDrivers();
+  }, []);
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className='App' id={styles.mainView}>
+       {location.pathname !== "/" && <Nav />}
+    <Routes>
+          <Route exact path="/" element={<LandingPage />} />
+          <Route path="/home" element={<HomePage drivers={drivers} />} />
+          <Route path="/detail/:id" element={<DetailPage />} />
+          <Route path="/create" element={<FormPage />} />
+        </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    
   )
 }
 
-export default App
+export default App;
+
+
+
+
+
