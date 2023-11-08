@@ -13,6 +13,7 @@ function mapApiDriver(apiDriver) {
     image: { url },
     dob,
     nationality,
+    teams,
   } = apiDriver;
 
   return {
@@ -23,6 +24,7 @@ function mapApiDriver(apiDriver) {
     image: { url },
     dob,
     nationality,
+    teams,
   };
 }
 // Controlador para buscar todos los conductores
