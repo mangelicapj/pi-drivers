@@ -34,8 +34,11 @@ async function getAllDrivers(req, res) {
     const apiDrivers = apiResponse.data;
 
     const transformedApiDrivers = apiDrivers.map(mapApiDriver);
+    const dbDrivers = await Driver.findAll({ include: [{ model: Team }] });
+    
+    const combinedDrivers = [...transformedApiDrivers, ...dbDrivers];
 
-    return res.json(transformedApiDrivers);
+    return res.json(combinedDrivers);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Error al obtener conductores' });
@@ -174,10 +177,12 @@ const createDriver = async (req, res) => {
       }
 
       // Crea una relación entre el conductor y el equipo
-      await driver.addTeam(team.id); // Usamos el "id" del equipo
+      if (!teams || teams.length === 0) {
+        return res.status(400).json({ error: 'Se requiere al menos un equipo para asociar al conductor.' });
+      }
+      await driver.addTeam(team.id); 
 
-      // Puedes también usar:
-      // await driver.addTeam(team); // Si ya tienes el objeto del equipo
+     
     }
 
     // Vuelve a relacionar el conductor con los equipos y devuelve la respuesta
