@@ -132,7 +132,28 @@ const createDriver = async (req, res) => {
   } = req.body;
 
   try {
-    // Primero, intenta crear el conductor
+    // Verificar si el conductor ya existe en la API externa
+    const apiResponse = await axios.get(`${API_EXTERNAL_URL}/drivers`);
+    const apiDrivers = apiResponse.data;
+    const existingApiDriver = apiDrivers.find(apiDriver => {
+      return apiDriver.name.forename.toLowerCase() === name.toLowerCase() &&
+             apiDriver.name.surname.toLowerCase() === surname.toLowerCase();
+    });
+
+    // Verificar si el conductor ya existe en la base de datos
+    const existingDbDriver = await Driver.findOne({
+      where: {
+        name: { [Sequelize.Op.iLike]: name }, // Case-insensitive search
+        surname: { [Sequelize.Op.iLike]: surname }, // Case-insensitive search
+      }
+    });
+
+    // Si el conductor ya existe en la API externa o en la base de datos, enviar mensaje de error
+    if (existingApiDriver || existingDbDriver) {
+      return res.status(400).json({ error: 'El conductor ya existe y no se puede crear nuevamente.' });
+    }
+
+    // Si el conductor no existe, crearlo
     const driver = await Driver.create({
       name,
       surname,

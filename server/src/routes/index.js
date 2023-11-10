@@ -5,8 +5,8 @@ const router = Router();
 
 // Rutas relacionadas con los conductores
 router.get("/drivers", driversController.getAllDrivers);
-router.get("/drivers/id/:idDriver", driversController.getDriverById); // Ruta para buscar por ID
-router.get("/drivers/name", driversController.searchDriversByName); // Ruta para buscar por nombre
+router.get("/drivers/id/:idDriver", driversController.getDriverById); 
+router.get("/drivers/name", driversController.searchDriversByName); 
 router.post("/drivers", driversController.createDriver);
 
 // Rutas relacionadas con los equipos
