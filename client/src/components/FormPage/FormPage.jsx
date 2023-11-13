@@ -1,7 +1,7 @@
 import validate from "./Validation";
 import { useState, useEffect } from "react";
 import styles from "./FormPage.module.css";
-import { getTeams } from "../../redux/actions.js";
+import { getTeams, postDriver } from "../../redux/actions.js";
 import { useDispatch, useSelector } from "react-redux";
 
 const Form = () => {
@@ -12,7 +12,8 @@ const Form = () => {
     image: "",
     nationality: "",
     dob: "",
-    teams: [], 
+    teams: [],
+    customTeam: "",
   });
 
   const [errors, setErrors] = useState({
@@ -26,7 +27,7 @@ const Form = () => {
   });
 
   const dispatch = useDispatch();
-  const teams = useSelector((state) => state.teams) || []; 
+  const teams = useSelector((state) => state.teams) || [];
 
   useEffect(() => {
     dispatch(getTeams());
@@ -34,7 +35,12 @@ const Form = () => {
 
   const changeHandler = (event) => {
     const property = event.target.name;
-    const value = event.target.value;
+    let value = event.target.value;
+
+    if (event.target.type === 'select-multiple') {
+      const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
+      value = selectedOptions;
+    }
 
     setErrors(validate({ ...form, [property]: value }));
     setForm({ ...form, [property]: value });
@@ -49,13 +55,25 @@ const Form = () => {
     }
   };
 
+  const submitHandler = async () => {
+    const formErrors = validate(form);
+    setErrors(formErrors);
+
+    if (Object.keys(formErrors).length === 0) {
+      try {
+        await dispatch(postDriver(form));
+      } catch (error) {
+        console.error("Error al enviar el formulario:", error.data);
+      }
+    }
+  };
+
   return (
     <div className={styles["form-page"]}>
-      <form>
-        <label> Name: </label>
+    <form onSubmit={submitHandler}> 
+        <label > Name: </label>
         <input type="text" value={form.name} onChange={changeHandler} name="name" />
         {errors.name && <span>{errors.name}</span>}
-
         <label> Surname: </label>
         <input type="text" value={form.surname} onChange={changeHandler} name="surname" />
         {errors.surname && <span>{errors.surname}</span>}
@@ -76,22 +94,26 @@ const Form = () => {
         <input type="text" value={form.dob} onChange={changeHandler} name="dob" />
         {errors.dob && <span>{errors.dob}</span>}
 
-        <label> Teams: </label>
+        <label> Select Teams: </label>
         <select
-        multiple
-        value={form.teams}
-        onChange={(e) => {
-          const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
-          setForm({ ...form, teams: selectedOptions });
-        }}
-        name="teams"
-      >
-        {teams.map((item) => (
-          <option key={item.id} value={item.id}>
-            {item.name}
-          </option>
+          multiple
+          value={form.teams}
+          onChange={changeHandler}
+          name="teams"
+        >
+          {teams.map((item) => (
+            <option key={item.id} value={item.name}>
+              {item.name}
+            </option>
+          ))}
+        </select>
+
+        <label> Custom Teams: </label>
+      <div className={styles["custom-teams"]}>
+        {form.teams.map((team, index) => (
+          <span key={index}>{team}{index < form.teams.length - 1 ? ', ' : ''}</span>
         ))}
-      </select>
+      </div>
 
         <input
           type="text"
@@ -106,11 +128,10 @@ const Form = () => {
 
         {errors.teams && <span>{errors.teams}</span>}
 
-        <button type="submit">Submit</button>
+        <button className={styles["button"]} type="submit">Submit</button>
       </form>
     </div>
   );
 };
 
 export default Form;
-

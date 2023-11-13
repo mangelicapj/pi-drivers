@@ -1,59 +1,67 @@
 
 .form-page {
-  text-align: center;
-  padding: 20px;
-}
-
-.form-page h2 {
-  font-size: 24px;
-}
-
-.form-page form {
+  max-width: 600px;
+  margin: auto;
+  background: url('../conductorx.JPG') no-repeat center center fixed;
+  background-size: cover;
+  padding: 10px 50px 20px;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.121); 
+  color: white; 
+  height: 130vh; 
   display: flex;
   flex-direction: column;
-  max-width: 400px;
-  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
 }
 
-.form-page label {
+label {
+  display: block;
   margin-top: 10px;
-  font-weight: bold;
+  font-weight: bold; 
 }
 
-.form-page input,
-.form-page textarea {
-  margin: 5px 0;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
+input,
+select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  background: rgba(237, 230, 230, 0.5); 
 }
 
-.form-page select {
-  margin: 5px 0;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.form-page button {
-  margin: 10px 0;
+button {
   padding: 10px;
   background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
+  color: #fffffff7;
   cursor: pointer;
-  font-size: 18px;
 }
 
-.error-message {
-  color: red;
-  font-weight: bold;
+button:hover {
+  background-color: #0056b3;
 }
 
-.success-message {
-  color: green;
-  font-weight: bold;
+span {
+  color: rgba(243, 140, 140, 0.797);
+  font-size: 14px;
+  margin-top: 5px;
+  display: block;
+}
+
+
+.custom-teams {
+  display: flex;
+  flex-wrap: wrap; 
+}
+
+.custom-teams span {
+  background: rgba(237, 230, 230, 0.5); 
+  color: rgb(31, 28, 28); 
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+:root {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }

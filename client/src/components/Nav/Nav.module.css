@@ -1,10 +1,19 @@
 .mainContainer {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
     align-items: center;
-    position: absolute;
+    justify-content: center;
     top: 0;
     left: 0;
     padding: 10px;
-}
+  }
+  
+  .mainContainer a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #2d2a2a; 
+  }
+  
+  .mainContainer a:hover {
+    text-decoration: underline;
+  }

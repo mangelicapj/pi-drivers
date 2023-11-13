@@ -1,11 +1,11 @@
 .div{
     display: flex;
     width: 250px;
-    height: 100%; /* Cambiado de '20%' a '100%' para que todas las tarjetas tengan la misma altura */
-    background-color: transparent;
+    height: 100%; 
+    background-color: white;
     flex-direction: column;
     align-items: center;
-    padding: 20px; /* Cambiado de '20 px' a '20px' (sin espacio) */
+    padding: 20px;
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
@@ -19,7 +19,7 @@
     position: relative;
     bottom: 10px;
     left: 10px;
-    background-color: rgba(233, 57, 57, 0.7); /* Cambiado el formato de color */
+    background-color: rgba(233, 57, 57, 0.7);
     padding: 5px;
     width: auto;
     color: black;
@@ -28,7 +28,7 @@
   
   .imageStyle {
     width: 100%;
-    height: auto;
+    height: 65%;
     border-radius: 8px;
     object-fit: cover;
   }

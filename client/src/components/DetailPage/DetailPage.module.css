@@ -1,25 +1,10 @@
-.detail-page {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .detail-page h2 {
-    font-size: 24px;
-  }
-  
-  .detail-page img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin: 20px 0;
-  }
-  
-  .detail-page p {
-    font-size: 16px;
-    margin: 10px 0;
-  }
-  
-  .detail-page p:first-child {
-    font-weight: bold;
-  }
-  
+.driver-info {
+  margin-bottom: 20px;
+}
+
+.imageStyle {
+  width: 40%;
+  height: 10%;
+  border-radius: 30px;
+  object-fit: cover;
+}
