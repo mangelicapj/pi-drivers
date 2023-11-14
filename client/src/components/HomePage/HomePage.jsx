@@ -12,7 +12,7 @@ const HomePage = () => {
   const drivers = useSelector((state) => state.drivers);
   const teams = useSelector((state) => state.teams);
   const nationality = useSelector((state) => state.nationality);
-  const teamsWithDrivers = useSelector((state) => state.teamsdriver); // Agregado teamsWithDrivers
+  const teamsWithDrivers = useSelector((state) => state.teamsdriver); 
 
   const [searchResults, setSearchResults] = useState([]);
   const [filteredDrivers, setFilteredDrivers] = useState([]);
@@ -69,19 +69,22 @@ const HomePage = () => {
     applyFilters(selectedTeam, selectedNationality, selectedSortBy, selectedYearOfBirth);
   }, [applyFilters, selectedTeam, selectedNationality, selectedSortBy, selectedYearOfBirth, drivers]);
 
+
   return (
     <div className={`${styles["home-page"]} ${styles["pagination"]}`}>
       <Filters className={styles["filter-section"]} teams={teams || []} nationality={nationality || []} onFilterChange={applyFilters} />
       <SearchBar className={styles["search-bar"]} onSearch={handleSearch} />
-      <Cards
-        className={styles["driver-card"]}
-        drivers={searchResults.length > 0 ? searchResults : filteredDrivers}
-        selectedTeam={selectedTeam}
-      />
+
+      {filteredDrivers && Array.isArray(filteredDrivers) && filteredDrivers.length > 0 && (
+        <Cards
+          className={styles["driver-card"]}
+          drivers={searchResults && searchResults.length > 0 ? searchResults : filteredDrivers}
+          selectedTeam={selectedTeam}
+        />
+      )}
     </div>
   );
 };
-
 HomePage.propTypes = {
   drivers: PropTypes.array.isRequired,
 };
