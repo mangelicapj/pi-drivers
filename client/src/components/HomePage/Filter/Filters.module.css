@@ -1,0 +1,16 @@
+.contenedor-filtros {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    justify-content: flex-end;
+    padding: 0; 
+}
+
+.filtro {
+    background-color: rgba(216, 18, 18, 0.452);
+    color: white; 
+    border-radius: 3%;
+    cursor: pointer;
+}

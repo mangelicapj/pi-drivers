@@ -15,18 +15,10 @@
   .filter-section {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 20px;
+    
   }
 
-  .filter-button {
-    background: rgba(237, 230, 230, 0.5);
-    color: rgb(31, 28, 28);
-    padding: 5px;
-    margin: 5px;
-    border-radius: 5px;
-    max-width: 3cm; 
-}
-     
+    
   .driver-card {
     border: 1px solid #ccc;
     border-radius: 5px;
