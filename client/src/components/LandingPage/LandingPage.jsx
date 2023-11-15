@@ -3,11 +3,10 @@ import styles from './LandingPage.module.css';
 
 const LandingPage = () => {
   return (
-    <div className={`${styles['landing-page']} ${styles['background-image']}`}>
-    <Link to={"/home"}>
-        
-        <button className={styles['home-button']} type="button">HOME</button>
-       
+    <div>
+      <div className={styles['background-image']}></div>
+      <Link to="/home" className={styles['home-link']}>
+        HOME
       </Link>
     </div>
   );

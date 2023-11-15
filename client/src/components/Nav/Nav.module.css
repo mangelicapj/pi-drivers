@@ -2,15 +2,16 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    top: 0;
-    left: 0;
+    left: 1;
     padding: 10px;
+    line-height: 5;
   }
   
   .mainContainer a {
     margin-left: 20px;
     text-decoration: none;
     color: #2d2a2a; 
+
   }
   
   .mainContainer a:hover {

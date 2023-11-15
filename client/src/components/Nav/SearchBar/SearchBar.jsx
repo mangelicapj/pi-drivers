@@ -14,26 +14,24 @@ const SearchBar = ({ onSearch }) => {
       setError(null);
   
       let results;
+  
       if (searchTerm.trim() !== "") {
         if (!isNaN(searchTerm)) {
+          // Search by ID
           const result = await dispatch(getDriver(searchTerm));
-          console.log("Driver by ID:", result);
-  
           if (result && result.payload) {
-            // Si se encuentra un conductor por ID, establecer results como un array con ese conductor
             results = [result.payload];
           } else {
-            // Si no se encuentra el conductor, establecer results como un array vacío
             results = [];
           }
         } else {
+          // Search by Name
           const result = await dispatch(getDriverName(searchTerm));
-          console.log("Driver by Name:", result);
           results = result.payload || [];
         }
       } else {
+        // Get all drivers
         const result = await dispatch(getDrivers());
-        console.log("All Drivers:", result);
         results = result.payload || [];
       }
   
@@ -45,13 +43,14 @@ const SearchBar = ({ onSearch }) => {
       setError("Error en la búsqueda. Inténtelo de nuevo.");
     }
   };
+  
 
   return (
     <div className={styles.container}>
       <input
         className={styles.input}
         type="text"
-        placeholder="Buscar por nombre o ID"
+        placeholder="Buscar por nombre"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
@@ -68,3 +67,4 @@ SearchBar.propTypes = {
 };
 
 export default SearchBar;
+

@@ -1,28 +1,44 @@
-import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import Card from '../Card/Card';
 import styles from './Cards.module.css';
+import Paginado from '../HomePage/Paginado/Paginado';
 
-const Cards = () => {
-  const drivers = useSelector((state) => state.drivers);
+const Cards = ({ currentPage, driversPerPage, handlePageChange, filteredDrivers }) => {
+  const indexOfLastDriver = currentPage * driversPerPage;
+  const indexOfFirstDriver = indexOfLastDriver - driversPerPage;
+  const currentDrivers = filteredDrivers.slice(indexOfFirstDriver, indexOfLastDriver);
 
   return (
     <div className={styles.container}>
-      {drivers.map((driver) => (
-        <Card
-          key={driver.id}
-          id={driver.id}
-          name={driver.name.forename} 
-          surname={driver.surname.surname} 
-          description={driver.description}
-          image={driver.image.url} 
-          nationality={driver.nationality}
-          dob={driver.dob}
-          teams={driver.teams}
-        />
-      ))}
+    {currentDrivers.map((driver) => (
+      <Card
+        key={String(driver.id)} 
+        id={String(driver.id)}   
+        name={typeof driver.name === 'object' ? driver.name.forename : driver.name}
+        surname={typeof driver.surname === 'object' ? driver.surname.surname : driver.surname}
+        description={driver.description}
+        image={driver.image.url}
+        nationality={driver.nationality}
+        dob={driver.dob}
+        teams={driver.teams}
+      />
+    ))}
+      <Paginado
+        totalPages={Math.ceil(filteredDrivers.length / driversPerPage)}
+        onPageChange={handlePageChange}
+        currentPage={currentPage}
+        driversPerPage={driversPerPage}
+        totalDrivers={filteredDrivers.length}
+      />
     </div>
   );
 };
 
-export default Cards;
+Cards.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  driversPerPage: PropTypes.number.isRequired,
+  handlePageChange: PropTypes.func.isRequired,
+  filteredDrivers: PropTypes.array.isRequired,
+};
 
+export default Cards;
