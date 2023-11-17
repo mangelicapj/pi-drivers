@@ -18,17 +18,22 @@ const DetailPage = () => {
       <h1>Driver Details</h1>
       {driver ? (
         <div>
-          <img className={styles['imageStyle']} src={driver.image?.url} alt={`${driver.name?.forename} ${driver.surname?.surname}`} />
-          <h2>Name: {driver.name?.forename} {driver.surname?.surname}</h2>
+          <img 
+            className={styles['imageStyle']}
+            src={driver.image?.url || 'https://static.vecteezy.com/system/resources/previews/004/595/959/non_2x/formula-one-driver-and-racing-car-with-halo-aka-head-guard-in-red-color-race-sport-competition-concept-cartoon-illustration-on-white-background-vector.jpg'}
+            alt={`${driver.name?.forename} ${driver.surname?.surname}`}
+          />
+          <h2>ID: {driver.id}</h2>
+          <h2>Name: {driver.name && typeof driver.name === 'object' ? driver.name.forename : driver.name} {driver.surname && typeof driver.surname === 'object' ? driver.surname.surname : driver.surname}</h2>
           <p>Nationality: {driver.nationality}</p>
           <p>DOB: {driver.dob}</p>
           <p>Description: {driver.description}</p>
-          {Array.isArray(driver.teams) && driver.teams.length > 0 && (
+          {Array.isArray(driver.Teams) && driver.Teams.length > 0 && (
             <div>
               <h3>Teams:</h3>
               <ul>
-                {driver.teams.map((team, index) => (
-                  <li key={index}>{team}</li>
+                {driver.Teams.map((team, index) => (
+                  <li key={index}>{team.name}</li>
                 ))}
               </ul>
             </div>

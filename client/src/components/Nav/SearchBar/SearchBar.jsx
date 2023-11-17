@@ -5,6 +5,7 @@ import styles from "./SearchBar.module.css";
 import PropTypes from "prop-types";
 
 const SearchBar = ({ onSearch }) => {
+  console.log("Searching...");
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null);
@@ -19,15 +20,16 @@ const SearchBar = ({ onSearch }) => {
         if (!isNaN(searchTerm)) {
           // Search by ID
           const result = await dispatch(getDriver(searchTerm));
-          if (result && result.payload) {
-            results = [result.payload];
+          if (result && result.id !== undefined) {
+            // Result is an object with 'id' property
+            results = [result];
           } else {
             results = [];
           }
         } else {
           // Search by Name
           const result = await dispatch(getDriverName(searchTerm));
-          results = result.payload || [];
+          results = result.payload?.drivers || [];
         }
       } else {
         // Get all drivers
@@ -35,16 +37,24 @@ const SearchBar = ({ onSearch }) => {
         results = result.payload || [];
       }
   
-      console.log("Final Results:", results);
+      // Extract names from objects if present
+      const formattedResults = results.map((result) => ({
+        ...result,
+        name: result.name && typeof result.name === 'object' ? result.name.forename || result.name : result.name,
+        surname: result.surname && typeof result.surname === 'object' ? result.surname.surname || result.surname : result.surname,
+      }));
+  
+      console.log("Final Results:", formattedResults);
       setSearchTerm("");
-      onSearch(results);
+      onSearch(formattedResults);
     } catch (error) {
       console.error("Error en la búsqueda:", error);
       setError("Error en la búsqueda. Inténtelo de nuevo.");
     }
   };
   
-
+  
+  
   return (
     <div className={styles.container}>
       <input

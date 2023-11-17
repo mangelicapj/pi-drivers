@@ -1,29 +1,49 @@
-import styles from "./Card.module.css";
+
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import styles from './Card.module.css';
 
 const Card = ({ id, name, surname, image, teams }) => {
   if (typeof name !== 'string' || typeof surname !== 'string' || typeof image !== 'string') {
     return null;
   }
-  console.log("Card ID:", id);
-  console.log("Card Name:", name);
-  console.log("Card Surname:", surname);
+
+  const teamsArray =
+    Array.isArray(teams) && teams.length > 0
+      ? teams.map((team) => {
+          if (team.DriverTeam && team.DriverTeam.name) {
+            return team.DriverTeam.name; 
+          }
+          if (team.Teams && Array.isArray(team.Teams)) {
+            // Para conductores creados con la estructura diferente
+            return team.Teams.map((team) => team.name);
+          }
+          if (team.name) {
+            // Para conductores existentes
+            return team.name;
+          }
+          if (typeof team === 'string') {
+            return team;
+          }
+          return '';
+        })
+      : typeof teams === 'string'
+      ? teams.split(',').map((team) => team.trim())
+      : [];
 
   return (
     <div className={styles['div']} id={id}>
-      <img src={image} alt='' className={styles['imageStyle']} />
-      <Link to={`/detail/${id}`}>
+      <Link to={`/detail/${id}`} className={styles['link']}>
+        <img src={image} alt='' className={styles['imageStyle']} />
         <div>
-          <h2 className={styles['nameStyle']}> Name: {name}</h2>
-          <h2 className={styles['nameStyle']}> Surname: {surname}</h2>
-          
+          <h2 className={styles['nameStyle']}>Name: {name}</h2>
+          <h2 className={styles['nameStyle']}>Surname: {surname}</h2>
         </div>
-        {teams && (
+        {teamsArray && (
           <ul className={styles['data']}>
             <li>Teams: </li>
             {Array.isArray(teams) ? (
-              teams.map((team, index) => (
+              teamsArray.map((team, index) => (
                 <li key={index}>{team}</li>
               ))
             ) : (
@@ -40,18 +60,9 @@ Card.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   name: PropTypes.string.isRequired,
   surname: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  image: PropTypes.string,
-  nationality: PropTypes.string,
-  dob: PropTypes.string,
-  teams: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+  image: PropTypes.string.isRequired,
+  teams: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.object]),
 };
+
 export default Card;
-
-//description, nationality, dob,
-//<p className={styles['data']}> Description: {description}</p>
-//<p className={styles['data']}>DOB: {dob}</p>
-//<h2 className={styles['data']}>Nationality: {nationality}</h2>
-
-
 

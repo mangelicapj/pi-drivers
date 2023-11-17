@@ -50,7 +50,7 @@ const HomePage = () => {
 
       if (sortBy) {
         filtered.sort((a, b) => {
-          const nameA = a.name.forename || ""; // Si es undefined, asignamos una cadena vacía
+          const nameA = a.name.forename || ""; 
           const nameB = b.name.forename || "";
       
           return sortBy === "Ascendente"
