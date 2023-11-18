@@ -30,7 +30,7 @@ const Cards = ({ currentPage, driversPerPage, handlePageChange, filteredDrivers 
           image={typeof driver.image === 'string' ? driver.image : (driver.image && driver.image.url) || 'https://static.vecteezy.com/system/resources/previews/004/595/959/non_2x/formula-one-driver-and-racing-car-with-halo-aka-head-guard-in-red-color-race-sport-competition-concept-cartoon-illustration-on-white-background-vector.jpg'}
           nationality={driver.nationality || ''}
           dob={driver.dob || ''}
-          teams={driver.teams || []} 
+          teams={driver.teams || driver.Teams} 
         />
         );
       })}
