@@ -54,12 +54,16 @@ const Form = () => {
       setForm({ ...form, teams: selectedTeams, customTeam: "" });
     }
   };
+ 
 
   const submitHandler = async () => {
     const formErrors = validate(form);
     setErrors(formErrors);
 
-    if (Object.keys(formErrors).length === 0) {
+    if (Object.keys(formErrors).length > 0){
+      event.preventDefault(); 
+          
+    }else if (Object.keys(formErrors).length === 0) {
       try {
         await dispatch(postDriver(form));
       } catch (error) {

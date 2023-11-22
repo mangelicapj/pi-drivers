@@ -4,7 +4,7 @@ import styles from './Cards.module.css';
 import Paginado from '../HomePage/Paginado/Paginado';
 
 const Cards = ({ currentPage, driversPerPage, handlePageChange, filteredDrivers }) => {
-  console.log("Filtered Drivers in Cards:", filteredDrivers);
+ 
 
   if (!filteredDrivers || filteredDrivers.length === 0) {
     return <p>No drivers found.</p>;
@@ -19,11 +19,11 @@ const Cards = ({ currentPage, driversPerPage, handlePageChange, filteredDrivers 
   return (
     <div className={styles['container']} >
       {currentDrivers.map((driver) => {
-        console.log("Rendering Driver ID:", driver.id);
+       
         return (
           <Card
-          key={driver.id}
-          id={driver.id}
+          key={driver.id }
+          id={driver.id }
           name={driver.name && typeof driver.name === 'object' ? driver.name.forename : driver.name}
           surname={driver.surname && typeof driver.surname === 'object' ? driver.surname.surname : driver.surname}
           description={driver.description || ''}

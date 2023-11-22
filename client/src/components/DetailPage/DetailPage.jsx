@@ -13,22 +13,7 @@ const DetailPage = () => {
     dispatch(getDriver(id));
   }, [dispatch, id]);
   
-  console.log("Romel:"+ driver.teams);
-  console.log(driver);
-  
-  /*const teamsArray =
-    Array.isArray(driver.Teams) && driver.Teams.length > 0
-    ? driver.Teams.map((team) => {
-        if (typeof team === 'string') {
-          return team; // Para conductores existentes
-        } else if (team.name) {
-          return team.name; // Para conductores existentes
-        } else if (team.DriverTeam && team.DriverTeam.name) {
-          return team.DriverTeam.name; // Para conductores existentes con estructura diferente
-        }
-        return ''; // Ajusta según la estructura real de tus datos
-      })
-    : [];*/
+
  let teamsArray = [];
 
     if (driver.teams !== undefined){
@@ -40,8 +25,6 @@ const DetailPage = () => {
       ? driver.Teams.map((team) => {
         return team.name;
       }) :[];
-    }else {
-      // es otro 
     }
   
     return (

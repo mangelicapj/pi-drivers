@@ -8,26 +8,12 @@ const Card = ({ id, name, surname, image, teams }) => {
     return null;
   }
 
-  /*const teamsArray =
-  Array.isArray(teams) && teams.length > 0
-    ? teams.map((team) => {
-        if (team.name) {
-          return team.name; // Para conductores creados
-        } else if (team.DriverTeam && team.DriverTeam.name) {
-          return team.DriverTeam.name; // Para conductores existentes con estructura diferente
-        } else if (team.Teams && Array.isArray(team.Teams)) {
-          return team.Teams.map((innerTeam) => (innerTeam.name ? innerTeam.name : innerTeam)); // Para conductores creados con estructura diferente
-        } else {
-          return ''; // Ajusta según la estructura real de tus datos
-        }
-      })
-    : [];*/
-    let teamsArray = [];
+  let teamsArray = [];
 
     if (typeof teams === 'string' ){
       //drivers existentes
     teamsArray = teams.split(',');
-    console.log(teams);
+    
     } else {
       //drivers creados
       teamsArray = Array.isArray(teams) && teams.length > 0
@@ -36,9 +22,7 @@ const Card = ({ id, name, surname, image, teams }) => {
       }) :[];
       
     }
-    console.log(teamsArray);
-    console.log(teams);
-  return (
+    return (
     <div className={styles['div']} id={id}>
       <Link to={`/detail/${id}`} className={styles['link']}>
         <img src={image} alt='' className={styles['imageStyle']} />

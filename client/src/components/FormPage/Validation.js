@@ -1,16 +1,15 @@
-const expRegNombre=/^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
-const expRegApellidos=/^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+const expRegNP=/^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
 const expRegURL = /^(http|https)?:\/\/\S+$/;
 
 const validate = (form) => {
   const errors ={}
   if (!form.name) errors.name ='el nombre del conductor es requerido';
-  else if (!expRegNombre.test(form.name)) errors.name = "el nombre no es valido";
+  else if (!expRegNP.test(form.name)) errors.name = "el nombre no es valido";
   if (!form.surname) errors.surname ='el apellido del conductor es requerido';
-  else if (!expRegApellidos.test(form.surname)) errors.surname = 'el apellido del conductor no es valido';
+  else if (!expRegNP.test(form.surname)) errors.surname = 'el apellido del conductor no es valido';
   if (!form.description) errors.description = "La descripción es requerida";
-  else if (form.description.length > 200)
-    errors.description = "La descripción no puede tener más de 200 caracteres";
+  else if (form.description.length > 300)
+    errors.description = "La descripción no puede tener más de 300 caracteres";
 
   if (!form.image) { 
   form.image = 'https://static.vecteezy.com/system/resources/previews/004/595/959/non_2x/formula-one-driver-and-racing-car-with-halo-aka-head-guard-in-red-color-race-sport-competition-concept-cartoon-illustration-on-white-background-vector.jpg';
